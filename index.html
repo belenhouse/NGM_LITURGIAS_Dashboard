@@ -331,9 +331,9 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 
 <script>
 // ── CONFIG — edita estas dos líneas ──
-const PUB_KEY = 'YOUR_PUB_KEY_HERE';
+const PUB_KEY = '2PACX-1vTLjdie_SJqGRYzVTdEkSjIhYE3_0ffAhSamCoWbiwZOkY6V3-C-hOeyUOTrU35gmtgganbAFwC4HdT';
 const APPS_SCRIPT_URL = '';
-const SHEET_ID = 'YOUR_SHEET_ID_HERE';
+const SHEET_ID = '15w-I1BI37J8uSvj71Ln2YwkezzKDVhrRqGzLAxETsG4';
 
 // ── CONSTANTS ──
 const BLOCK_NAMES  = ['Pilares','Comercial','Operaciones','Marketing','Producto','Gestión'];
@@ -371,7 +371,7 @@ async function loadAgenda(){
     renderAgendaBlocks({}); return;
   }
   try{
-    const url=`https://docs.google.com/spreadsheets/d/e/${PUB_KEY}/gviz/tq?tqx=out:csv&sheet=Agenda%20reuni%C3%B3n%20lunes`;
+    const url=`https://docs.google.com/spreadsheets/d/e/${PUB_KEY}/gviz/tq?tqx=out:csv&sheet=agenda`;
     const r=await fetch(url);
     const text=await r.text();
     agendaData=parseAgenda(text);
