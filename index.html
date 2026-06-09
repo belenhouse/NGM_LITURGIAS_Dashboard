@@ -331,9 +331,9 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 
 <script>
 // ── CONFIG — edita estas dos líneas ──
-const PUB_KEY = '2PACX-1vTLjdie_SJqGRYzVTdEkSjIhYE3_0ffAhSamCoWbiwZOkY6V3-C-hOeyUOTrU35gmtgganbAFwC4HdT';
-const APPS_SCRIPT_URL = '';
-const SHEET_ID = '15w-I1BI37J8uSvj71Ln2YwkezzKDVhrRqGzLAxETsG4';
+const PUB_KEY = '2PACX-1vSj97TIqFr3lAmdnbeod39bzTY-TvENYFqfzhaMvdcuGhQcgpzMjMQq8EJbJ1xcwrXoD4tD5cOhQArO';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlyRkbXk-SH1QkY47la0YlQeSgZXdvxPqQMQ_m2_CGb3lNecP83N9VggjW76AaRsClNg/exec';
+const SHEET_ID = '1xZ1ri7PFGtMMQnxU9064ZUAbwvvDbk8kKR6xbVz4SiU';
 
 // ── CONSTANTS ──
 const BLOCK_NAMES  = ['Pilares','Comercial','Operaciones','Marketing','Producto','Gestión'];
@@ -371,7 +371,7 @@ async function loadAgenda(){
     renderAgendaBlocks({}); return;
   }
   try{
-    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vTLjdie_SJqGRYzVTdEkSjIhYE3_0ffAhSamCoWbiwZOkY6V3-C-hOeyUOTrU35gmtgganbAFwC4HdT/pub?gid=244742272&single=true&output=csv`;
+    const url = `https://docs.google.com/spreadsheets/d/e/${PUB_KEY}/gviz/tq?tqx=out:csv&gid=1385608406`;
     const r=await fetch(url);
     const text=await r.text();
     agendaData=parseAgenda(text);
