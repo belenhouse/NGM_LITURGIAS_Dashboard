@@ -371,7 +371,7 @@ async function loadAgenda(){
     renderAgendaBlocks({}); return;
   }
   try{
-    const url = `https://docs.google.com/spreadsheets/d/e/${PUB_KEY}/gviz/tq?tqx=out:csv&gid=1385608406`;
+    const url = `https://docs.google.com/spreadsheets/d/e/${PUB_KEY}/pub?gid=1385608406&single=true&output=csv`;
     const r=await fetch(url);
     const text=await r.text();
     agendaData=parseAgenda(text);
