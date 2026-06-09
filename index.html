@@ -371,7 +371,7 @@ async function loadAgenda(){
     renderAgendaBlocks({}); return;
   }
   try{
-    const url=`https://docs.google.com/spreadsheets/d/e/${PUB_KEY}/gviz/tq?tqx=out:csv&sheet=agenda`;
+    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vTLjdie_SJqGRYzVTdEkSjIhYE3_0ffAhSamCoWbiwZOkY6V3-C-hOeyUOTrU35gmtgganbAFwC4HdT/pub?gid=244742272&single=true&output=csv`;
     const r=await fetch(url);
     const text=await r.text();
     agendaData=parseAgenda(text);
