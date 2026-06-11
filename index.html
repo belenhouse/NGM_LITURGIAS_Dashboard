@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Newry — Liturgia de Reuniones</title>
+<title>Liturgia de Reuniones</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -24,7 +24,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 /* HEADER */
 .header{background:var(--bg2);border-bottom:2px solid var(--green-border);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
 .header-left{display:flex;align-items:center;gap:14px}
-.logo{font-size:15px;font-weight:800;color:var(--green)}
+.logo{font-size:11px;font-weight:800;color:var(--green);letter-spacing:.2px}
 .divider{width:1px;height:26px;background:var(--border)}
 .meeting-date{font-size:11px;color:var(--text3);font-family:var(--mono)}
 .header-right{display:flex;align-items:center;gap:8px}
@@ -110,6 +110,37 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .hz-add-input:focus{background:var(--bg4);color:var(--text)}
 .hz-add-input::placeholder{color:var(--text3);opacity:.8}
 
+/* GLOBAL VIEW PANEL */
+.global-panel{display:none;background:var(--bg3);border-bottom:2px solid var(--green-border)}
+.global-panel.open{display:block}
+.global-inner{padding:14px 20px;max-height:70vh;overflow-y:auto}
+.global-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.global-top-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text3)}
+.gb-blocks{display:flex;flex-direction:column;gap:6px}
+.gb-block{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;background:var(--bg2)}
+.gb-block-hd{display:flex;align-items:center;gap:8px;padding:9px 14px;cursor:pointer;background:var(--bg3);user-select:none;transition:background .15s}
+.gb-block-hd:hover{background:var(--bg4)}
+.gb-block-hd.open{background:var(--green-bg);border-bottom:1px solid var(--green-border)}
+.gb-arrow{font-size:9px;color:var(--text3);transition:transform .15s;width:10px;text-align:center;flex-shrink:0}
+.gb-arrow.open{transform:rotate(90deg);color:var(--green)}
+.gb-block-name{font-size:12px;font-weight:700;color:var(--text2);flex:1}
+.gb-block-body{display:none;overflow:hidden}
+.gb-block-body.open{display:block}
+.gb-empty-block{padding:12px 14px;font-size:11px;color:var(--text3);font-style:italic}
+.gb-table{display:grid;grid-template-columns:220px repeat(4,1fr);border-left:1px solid var(--border);border-top:1px solid var(--border)}
+.gb-hd-sub,.gb-hd,.gb-sub-cell,.gb-cell{border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.gb-hd-sub{padding:5px 10px;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);background:var(--bg4)}
+.gb-hd{padding:5px 10px;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:white}
+.gb-hd.c0{background:var(--corto)}
+.gb-hd.c1{background:var(--medio)}
+.gb-hd.c2{background:var(--largo)}
+.gb-hd.c3{background:var(--telemaco)}
+.gb-sub-cell{padding:7px 10px;font-size:11px;font-weight:600;color:var(--text2);background:var(--bg3);line-height:1.35}
+.gb-cell{padding:7px 10px;font-size:11px;color:var(--text2);background:var(--bg2);line-height:1.5}
+.gb-item{margin-bottom:2px;line-height:1.4}
+.gb-item:last-child{margin-bottom:0}
+.gb-cell-empty{color:var(--text3);font-style:italic;font-size:10px}
+
 /* RIGHT — CAPTURE */
 .capture-panel{background:var(--bg2);border-left:1px solid var(--border);padding:14px;overflow-y:auto}
 .cp-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
@@ -160,6 +191,58 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .toast.error{background:var(--red);color:white}
 .toast.warn{background:var(--amber);color:white}
 @keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* USER IDENTIFICATION MODAL */
+.user-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:none;align-items:center;justify-content:center}
+.user-modal-overlay.open{display:flex}
+.user-modal{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);width:90%;max-width:420px;padding:32px 28px;box-shadow:var(--shadow-md);animation:fadeUp .25s ease}
+.um-title{font-size:22px;font-weight:800;color:var(--text);margin-bottom:6px;letter-spacing:-.5px}
+.um-sub{font-size:12px;color:var(--text3);margin-bottom:22px;line-height:1.6}
+.um-field{width:100%;background:var(--bg);border:1.5px solid var(--border2);color:var(--text);border-radius:var(--radius);padding:11px 13px;font-size:13px;font-family:var(--font);outline:none;transition:border-color .15s;margin-bottom:6px}
+.um-field:focus{border-color:var(--green)}
+.um-field.um-error{border-color:var(--red)}
+.um-err-msg{font-size:11px;color:var(--red);min-height:14px;margin-bottom:14px}
+.header-user{display:none;align-items:center;gap:6px;font-size:11px}
+.header-user-name{font-weight:700;color:var(--text)}
+.hz-item-author{font-size:9px;color:var(--text3);display:block;margin-top:2px;font-style:italic;line-height:1.3}
+
+/* SYNC UI */
+.save-status{font-size:10px;font-family:var(--mono);min-width:60px;text-align:right;opacity:0;transition:opacity .2s}
+.save-status.active{opacity:1}
+.save-status.saving{color:var(--amber)}
+.save-status.saved{color:var(--green)}
+.save-status.error{color:var(--red)}
+.change-banner{display:none;background:var(--amber);color:white;padding:8px 20px;font-size:12px;font-weight:600;align-items:center;gap:12px;flex-wrap:wrap}
+.change-banner.visible{display:flex}
+.cb-text{flex:1}
+.cb-actions{display:flex;gap:8px;flex-shrink:0}
+.btn-banner{background:white;color:var(--amber);border:none;border-radius:var(--radius);padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)}
+.btn-banner-ghost{background:rgba(255,255,255,.25);color:white;border:1px solid rgba(255,255,255,.5);border-radius:var(--radius);padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font)}
+
+/* RULES PANEL */
+.rules-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:300;opacity:0;pointer-events:none;transition:opacity .25s}
+.rules-overlay.open{opacity:1;pointer-events:all}
+.rules-panel{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:92vw;background:var(--bg2);border-left:2px solid var(--green-border);z-index:301;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(0,0,0,.1)}
+.rules-panel.open{transform:translateX(0)}
+.rules-ph{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--green-bg);flex-shrink:0}
+.rules-ph-title{font-size:14px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px}
+.rules-ph-badge{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);background:var(--bg2);border:1px solid var(--green-border);border-radius:20px;padding:2px 8px}
+.rules-body{padding:8px 0;overflow-y:auto;flex:1}
+.rule-item{display:flex;gap:14px;padding:14px 20px;border-bottom:1px solid var(--border);transition:background .12s}
+.rule-item:last-child{border-bottom:none}
+.rule-item:hover{background:var(--bg3)}
+.rule-left{display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0;padding-top:2px}
+.rule-num{width:22px;height:22px;border-radius:50%;background:var(--green);color:white;font-size:9px;font-weight:800;font-family:var(--mono);display:flex;align-items:center;justify-content:center}
+.rule-icon{font-size:16px;line-height:1}
+.rule-title{font-size:12px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:4px}
+.rule-desc{font-size:11px;color:var(--text3);line-height:1.6}
+
+/* DISCLAIMER */
+.site-footer{position:fixed;bottom:0;left:0;right:0;background:var(--bg3);border-top:1px solid var(--border);padding:5px 20px;font-size:9px;color:var(--text3);line-height:1.5;z-index:50;text-align:center}
+.site-footer strong{font-weight:700;color:var(--text3)}
+.disc{font-size:10px;color:var(--text3);line-height:1.6;border-top:1px solid var(--border);padding-top:12px;margin-top:14px}
+.disc strong{font-weight:700;display:block;margin-bottom:3px;font-size:9px;letter-spacing:.5px;text-transform:uppercase}
+body{padding-bottom:34px}
 </style>
 </head>
 <body>
@@ -167,16 +250,45 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 <!-- HEADER -->
 <div class="header">
   <div class="header-left">
-    <div class="logo">Newry</div>
+    <div class="logo">Liturgia de Reuniones</div>
     <div class="divider"></div>
     <div class="meeting-date" id="meeting-date">—</div>
+    <div class="divider"></div>
+    <div class="header-user" id="header-user">
+      <span class="header-user-name" id="header-user-name"></span>
+      <button class="btn btn-ghost btn-sm" onclick="changeUser()">Cambiar</button>
+    </div>
   </div>
   <div class="header-right">
     <button class="btn btn-primary" id="btn-master" onclick="toggleMaster()">▶ Iniciar reunión</button>
     <button class="btn btn-end" onclick="openEndModal()">⬛ Cerrar reunión</button>
     <button class="btn btn-ghost btn-sm" onclick="resetAll()">↺</button>
     <a id="sheet-link" href="#" target="_blank"><button class="btn btn-ghost btn-sm">↗ Sheet</button></a>
+    <button class="btn btn-ghost btn-sm" onclick="toggleRules()">📋 Reglas</button>
+    <span id="save-status" class="save-status"></span>
+    <button class="btn btn-ghost btn-sm" onclick="toggleGlobalView()">🌐 Vista global</button>
   </div>
+</div>
+
+<div class="global-panel" id="global-panel">
+  <div class="global-inner">
+    <div class="global-top">
+      <span class="global-top-label">Visión global — contenido de todos los bloques</span>
+      <button class="btn btn-ghost btn-sm" onclick="toggleGlobalView()">✕ Cerrar</button>
+    </div>
+    <div class="gb-blocks" id="gb-blocks-container">
+      <div class="loading-agenda"><div class="spinner"></div>Cargando…</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHANGE NOTIFICATION BANNER -->
+<div class="change-banner" id="change-banner">
+  <span class="cb-text">📋 Hay cambios en el Sheet desde la última carga — el contenido puede haber sido actualizado.</span>
+  <span class="cb-actions">
+    <button class="btn-banner" onclick="applySheetUpdate()">Actualizar vista</button>
+    <button class="btn-banner-ghost" onclick="dismissChangeBanner()">Ignorar</button>
+  </span>
 </div>
 
 <div class="layout">
@@ -289,10 +401,18 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
     <div class="modal-body">
       <table class="summary-table">
         <thead><tr>
-          <th>Persona</th><th>Compromiso</th><th>Entrega</th><th>Descripción</th><th>Horas</th><th>Bloque</th>
+          <th>Persona</th><th>Compromiso</th><th>Entrega</th><th>Descripción</th><th>Horas</th><th>Bloque</th><th>Reg. por</th>
         </tr></thead>
         <tbody id="summary-tbody"></tbody>
       </table>
+    </div>
+    <div style="padding:10px 20px 0;border-top:1px solid var(--border)">
+      <p style="font-size:9px;color:var(--text3);line-height:1.6;margin:0">
+        <strong style="font-weight:700">— Aviso —</strong>
+        Esta herramienta es una prueba de concepto interna y no ha sido auditada en materia de seguridad.
+        La información introducida no está protegida por los mecanismos de seguridad de los sistemas oficiales de la compañía.
+        Se recomienda no introducir datos sensibles, confidenciales o personales. Prueba de concepto sin garantías de disponibilidad ni integridad de los datos.
+      </p>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost btn-sm" onclick="copySummary()">📋 Copiar</button>
@@ -301,11 +421,103 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   </div>
 </div>
 
+<!-- USER IDENTIFICATION MODAL (blocking) -->
+<div class="user-modal-overlay" id="user-modal">
+  <div class="user-modal">
+    <div class="um-title">¿Quién eres?</div>
+    <div class="um-sub">Identifícate para registrar compromisos y anotar puntos en la agenda.<br>Tu nombre se guardará en este navegador.</div>
+    <input type="text" class="um-field" id="um-name"
+           placeholder="Nombre y primera inicial del apellido (ej. Belén A.)"
+           onkeydown="if(event.key==='Enter')submitUser()">
+    <div class="um-err-msg" id="um-err"></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;padding:10px 14px;font-size:13px" onclick="submitUser()">Confirmar →</button>
+    <div class="disc">
+      <strong>— Aviso —</strong>
+      Esta herramienta es una prueba de concepto interna y no ha sido auditada en materia de seguridad.
+      La información introducida no está protegida por los mecanismos de seguridad de los sistemas oficiales de la compañía.
+      Se recomienda no introducir datos sensibles, confidenciales o personales hasta que esta herramienta esté integrada en la infraestructura oficial.
+      El uso implica la aceptación de estas condiciones. Prueba de concepto sin garantías de disponibilidad ni integridad de los datos.
+    </div>
+  </div>
+</div>
+
+<!-- RULES SLIDE PANEL -->
+<div class="rules-overlay" id="rules-overlay" onclick="toggleRules()"></div>
+<div class="rules-panel" id="rules-panel">
+  <div class="rules-ph">
+    <span class="rules-ph-title">
+      📋 Reglas de la reunión
+      <span class="rules-ph-badge">6 reglas</span>
+    </span>
+    <button class="btn btn-ghost btn-sm" onclick="toggleRules()">✕</button>
+  </div>
+  <div class="rules-body" id="rules-body"></div>
+</div>
+
 <div class="toast" id="toast"></div>
+
+<!-- DISCLAIMER FOOTER -->
+<div class="site-footer">
+  <strong>— Aviso —</strong>
+  Esta herramienta es una prueba de concepto interna y no ha sido auditada en materia de seguridad.
+  La información introducida no está protegida por los mecanismos de seguridad de los sistemas oficiales de la compañía.
+  Se recomienda no introducir datos sensibles, confidenciales o personales hasta que esta herramienta esté integrada en la infraestructura oficial.
+  El uso implica la aceptación de estas condiciones.
+  Prueba de concepto sin garantías de disponibilidad ni integridad de los datos.
+</div>
 
 <script>
 // ── CONFIG ──
+const PUB_KEY  = '2PACX-1vSj97TIqFr3lAmdnbeod39bzTY-TvENYFqfzhaMvdcuGhQcgpzMjMQq8EJbJ1xcwrXoD4tD5cOhQArO';
 const SHEET_ID = '1xZ1ri7PFGtMMQnxU9064ZUAbwvvDbk8kKR6xbVz4SiU';
+const GID      = '1385608406';
+
+// ── APPS SCRIPT WEB APP ──
+// Despliega el siguiente script en script.google.com vinculado al Sheet
+// (o como proyecto independiente con acceso al Sheet por ID).
+// Despliegue: Implementar > Nueva implementación > Aplicación web
+//   · Ejecutar como: Yo (la cuenta propietaria del Sheet)
+//   · Quién tiene acceso: Cualquier usuario
+// Copia la URL generada y pégala en APPS_SCRIPT_URL.
+//
+// ----------------------------------------------------------------
+// function doPost(e) {
+//   try {
+//     const data = JSON.parse(e.postData.contents);
+//     const ss   = SpreadsheetApp.openById('1xZ1ri7PFGtMMQnxU9064ZUAbwvvDbk8kKR6xbVz4SiU');
+//     const sheet = ss.getSheetByName(data.sheetName || 'agenda');
+//     if (!sheet) throw new Error('Sheet no encontrada: ' + data.sheetName);
+//     const row = parseInt(data.row);
+//     const col = parseInt(data.col);
+//     if (data.action === 'append') {
+//       const cell = sheet.getRange(row, col);
+//       const cur  = cell.getValue().toString().trim();
+//       cell.setValue(cur ? cur + '\n' + data.value : data.value);
+//     } else {
+//       sheet.getRange(row, col).setValue(data.value);
+//     }
+//     SpreadsheetApp.flush();
+//     return ContentService
+//       .createTextOutput(JSON.stringify({ ok: true }))
+//       .setMimeType(ContentService.MimeType.JSON);
+//   } catch(err) {
+//     return ContentService
+//       .createTextOutput(JSON.stringify({ ok: false, error: err.toString() }))
+//       .setMimeType(ContentService.MimeType.JSON);
+//   }
+// }
+// function doGet(e) {
+//   return ContentService
+//     .createTextOutput(JSON.stringify({ ok: true, status: 'active' }))
+//     .setMimeType(ContentService.MimeType.JSON);
+// }
+// ----------------------------------------------------------------
+
+// URL del Web App desplegado (dejar vacío hasta tenerla)
+const APPS_SCRIPT_URL = '';
+
+// Columnas del Sheet para cada horizonte (1-indexed: C=3, D=4, E=5, F=6)
+const HZ_COLS = [3, 4, 5, 6];
 
 // ── HORIZON DEFINITIONS ──
 const HZ_CLASSES = ['hz-corto','hz-medio','hz-largo','hz-telemaco'];
@@ -318,6 +530,40 @@ const HZ_META = [
 
 // ── BLOCK NAMES ──
 const BLOCK_NAMES = ['Pilares','Comercial','Operaciones','Marketing','Producto','Gestión'];
+
+// ── MEETING RULES ──
+const MEETING_RULES = [
+  {
+    icon: '⏱',
+    title: 'Intervenciones cortas y concretas',
+    desc: 'Cada persona tiene un máximo de 2 minutos por punto. Si un tema requiere más tiempo, se agenda una reunión específica fuera de este espacio.',
+  },
+  {
+    icon: '⏰',
+    title: 'Duración máxima: 60 minutos',
+    desc: '',
+  },
+  {
+    icon: '✅',
+    title: 'Todo compromiso tiene nombre, fecha y horas',
+    desc: 'No se acepta un compromiso sin los campos rellenos. Si no se puede concretar en el momento, no se registra como compromiso.',
+  },
+  {
+    icon: '🔄',
+    title: 'Los compromisos anteriores se revisan primero',
+    desc: 'Antes de abrir nuevos puntos, se hace un repaso rápido de los compromisos de la semana anterior.',
+  },
+  {
+    icon: '💡',
+    title: 'No se escalan problemas sin propuesta',
+    desc: 'Quien plantea un problema debe traer al menos una propuesta de solución o un responsable sugerido.',
+  },
+  {
+    icon: '📝',
+    title: 'Lo que no se escribe no existe',
+    desc: 'Todo acuerdo, decisión o compromiso debe quedar registrado antes de cerrar la reunión.',
+  },
+];
 
 // ── SUBCATEGORY STRUCTURE ──
 // Each block is an array of groups.
@@ -333,8 +579,8 @@ const BLOCK_STRUCTURE = [
     {
       label: 'Talento',
       items: [
-        'ABC — A: reconocimiento público / B: rec. privado, indicación de mejora / C: rec. privado, ultimátum',
-        'Solicitudes de nuevas incorporaciones / asignación de persona-puesto',
+        'ABC (assessment center): A (reconocimiento público), B (Rec. Privado, indicación de mejora) y C (Rec. Privado, ultimátum)',
+        'Solicitudes de nuevas incorporaciones, asignación de persona-puesto',
         'Programa de formación, desarrollo, coaching y mentoring',
         'Organigrama: problemas, obstáculos y fricciones',
       ],
@@ -380,12 +626,18 @@ let activeBlock = -1;
 const doneBlocks = new Set();
 const expandedSubs = new Set(); // keys: "blockIdx-gIdx-iIdx"
 const discussedItems = new Set();
-let localItems = {}; // { "bIdx-gIdx-iIdx-hzIdx": ["text1", "text2", ...] }
+let localItems = {}; // { "bIdx-gIdx-iIdx-hzIdx": [{text, addedBy}, ...] }
 let commitments = [];
 let agendaData = {}; // data from Sheet (optional)
+let globalVisible = false;
+const globalOpenBlocks = new Set();
+let currentUser = '';
+let pendingSheetData = null;
+let rulesOpen = false;
 
 // ── INIT ──
 function init() {
+  initUser();
   const now = new Date();
   const days = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
   const months = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
@@ -394,7 +646,264 @@ function init() {
   document.getElementById('sheet-link').href = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit`;
   const dt = new Date(); dt.setHours(10,0,0,0);
   document.getElementById('f-datetime').value = dt.toISOString().slice(0,16);
+  renderRules();
   renderAgendaBlocks();
+  loadAgenda();
+  startPolling();
+}
+
+// ── LOAD AGENDA FROM SHEET ──
+async function loadAgenda() {
+  try {
+    const url = `https://docs.google.com/spreadsheets/d/e/${PUB_KEY}/pub?gid=${GID}&single=true&output=csv`;
+    const r = await fetch(url);
+    const text = await r.text();
+    agendaData = parseAgenda(text);
+    if (activeBlock >= 0) renderBlockContent(activeBlock);
+    if (globalVisible) renderGlobalView();
+  } catch(e) {
+    console.warn('Sheet no disponible, usando datos locales', e);
+  }
+}
+
+// ── SHEET SYNC ──
+
+// Find the 1-indexed sheet row for a given block + subcategory label.
+// Uses the subRows map stored by parseAgenda; falls back to case-insensitive scan.
+function getSubRow(blockIdx, subLabel) {
+  const rows = agendaData.subRows;
+  if (!rows) return null;
+  const target = subLabel.trim().toLowerCase();
+  // Exact key first
+  const exactKey = `${blockIdx}||${subLabel.trim()}`;
+  if (rows[exactKey] !== undefined) return rows[exactKey];
+  // Case-insensitive fallback
+  for (const [key, row] of Object.entries(rows)) {
+    const sep = key.indexOf('||');
+    if (sep < 0) continue;
+    if (parseInt(key.slice(0, sep)) === blockIdx &&
+        key.slice(sep + 2).toLowerCase() === target) return row;
+  }
+  return null;
+}
+
+let _saveStatusTimer = null;
+function showSaveStatus(state, msg) {
+  const el = document.getElementById('save-status');
+  if (!el) return;
+  clearTimeout(_saveStatusTimer);
+  el.className = 'save-status active ' + state;
+  el.textContent = msg;
+  if (state !== 'saving') {
+    _saveStatusTimer = setTimeout(() => {
+      el.className = 'save-status';
+      el.textContent = '';
+    }, state === 'saved' ? 3000 : 5000);
+  }
+}
+
+async function writeToSheet(blockIdx, subLabel, hzIdx, text) {
+  if (!APPS_SCRIPT_URL) return; // not configured yet
+  const row = getSubRow(blockIdx, subLabel);
+  if (!row) {
+    console.warn('writeToSheet: fila no encontrada para bloque', blockIdx, 'sub', subLabel);
+    return;
+  }
+  const col = HZ_COLS[hzIdx];
+  showSaveStatus('saving', 'Guardando…');
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      // text/plain avoids CORS preflight — Apps Script still receives the body
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ sheetName: 'agenda', action: 'append', row, col, value: text }),
+    });
+    const json = await res.json();
+    if (!json.ok) throw new Error(json.error || 'Apps Script error');
+    showSaveStatus('saved', '✓ Guardado');
+  } catch(err) {
+    console.error('writeToSheet:', err);
+    showSaveStatus('error', '⚠ Error al guardar');
+    showToast('El ítem se guardó localmente pero no pudo sincronizarse con el Sheet', 'warn');
+  }
+}
+
+// ── POLLING (Sheet → Dashboard) ──
+
+function serializeAgendaContent(data) {
+  // Compare only content arrays, not the subRows metadata
+  const plain = {};
+  for (const [k, v] of Object.entries(data)) {
+    if (k === 'subRows') continue;
+    plain[k] = v;
+  }
+  return JSON.stringify(plain);
+}
+
+function startPolling() {
+  // Always poll: reading from pub CSV doesn't require APPS_SCRIPT_URL
+  setInterval(pollSheet, 60000);
+}
+
+async function pollSheet() {
+  try {
+    // Add timestamp param to bypass Google's CDN cache
+    const url = `https://docs.google.com/spreadsheets/d/e/${PUB_KEY}/pub?gid=${GID}&single=true&output=csv&t=${Date.now()}`;
+    const r = await fetch(url);
+    const text = await r.text();
+    const newData = parseAgenda(text);
+    if (serializeAgendaContent(newData) !== serializeAgendaContent(agendaData)) {
+      pendingSheetData = newData;
+      document.getElementById('change-banner').classList.add('visible');
+    }
+  } catch(e) {
+    console.warn('pollSheet:', e);
+  }
+}
+
+function applySheetUpdate() {
+  if (!pendingSheetData) return;
+  agendaData = pendingSheetData;
+  pendingSheetData = null;
+  document.getElementById('change-banner').classList.remove('visible');
+  if (activeBlock >= 0) renderBlockContent(activeBlock);
+  if (globalVisible) renderGlobalView();
+  showToast('✓ Vista actualizada desde el Sheet', 'success');
+}
+
+function dismissChangeBanner() {
+  pendingSheetData = null;
+  document.getElementById('change-banner').classList.remove('visible');
+}
+
+// ── VISIÓN GLOBAL ──
+
+function toggleGlobalView() {
+  globalVisible = !globalVisible;
+  const panel = document.getElementById('global-panel');
+  panel.classList.toggle('open', globalVisible);
+  if (globalVisible) renderGlobalView();
+}
+
+function toggleGlobalBlock(idx) {
+  if (globalOpenBlocks.has(idx)) globalOpenBlocks.delete(idx);
+  else globalOpenBlocks.add(idx);
+  renderGlobalView();
+}
+
+function renderGlobalView() {
+  const container = document.getElementById('gb-blocks-container');
+  if (!container) return;
+  let html = '';
+  BLOCK_NAMES.forEach((name, bIdx) => {
+    const isOpen = globalOpenBlocks.has(bIdx);
+    const blockItems = agendaData[bIdx] || [];
+    // Collect unique sub labels in order
+    const subsOrdered = [];
+    const subsSeen = new Set();
+    blockItems.forEach(it => {
+      const key = it.sub || '';
+      if (!subsSeen.has(key)) { subsSeen.add(key); subsOrdered.push(key); }
+    });
+    html += `<div class="gb-block">
+      <div class="gb-block-hd${isOpen ? ' open' : ''}" onclick="toggleGlobalBlock(${bIdx})">
+        <span class="gb-arrow${isOpen ? ' open' : ''}">▶</span>
+        <span class="gb-block-name">${name}</span>
+      </div>
+      <div class="gb-block-body${isOpen ? ' open' : ''}">`;
+    if (!blockItems.length) {
+      html += `<div class="gb-empty-block">Sin datos en el Sheet para este bloque.</div>`;
+    } else {
+      // Table header
+      html += `<div class="gb-table">
+        <div class="gb-hd-sub">Subcategoría</div>`;
+      HZ_META.forEach((hz, hi) => {
+        html += `<div class="gb-hd c${hi}">${hz.label}</div>`;
+      });
+      // Rows per sub
+      subsOrdered.forEach(sub => {
+        html += `<div class="gb-sub-cell">${sub || '—'}</div>`;
+        HZ_META.forEach((_, hzIdx) => {
+          const items = blockItems.filter(it => (it.sub || '') === sub && it.hzIdx === hzIdx);
+          if (items.length) {
+            html += `<div class="gb-cell">${items.map(it => `<div class="gb-item">${it.text}</div>`).join('')}</div>`;
+          } else {
+            html += `<div class="gb-cell"><span class="gb-cell-empty">—</span></div>`;
+          }
+        });
+      });
+      html += `</div>`;
+    }
+    html += `</div></div>`;
+  });
+  container.innerHTML = html;
+}
+
+function parseAgenda(csv) {
+  // Keep ALL lines (no filter) so lineIdx maps 1-to-1 to sheet row numbers.
+  const allLines = csv.split('\n');
+  const result = {};
+  // subRows: { "blockIdx||subLabel": sheetRow_1indexed }
+  // Used by writeToSheet to locate the target cell without scanning again.
+  result.subRows = {};
+  let curBlock = -1, curSub = '';
+
+  for (let lineIdx = 0; lineIdx < allLines.length; lineIdx++) {
+    const sheetRow = lineIdx + 1; // 1-indexed, matches Apps Script getRange(row, col)
+    if (sheetRow <= 2) continue;  // Row 1 = empty spacer, Row 2 = column headers
+
+    const line = allLines[lineIdx];
+    if (!line.includes(',')) continue; // empty row — keep lineIdx counting but skip
+
+    const cols = parseCSVLine(line);
+    const colB = (cols[1]||'').trim();
+    const colC = (cols[2]||'').trim();
+    const colD = (cols[3]||'').trim();
+    const colE = (cols[4]||'').trim();
+    const colF = (cols[5]||'').trim();
+
+    const blockMatch = colB.match(/Bloque\s*(\d+)/i);
+    if (blockMatch) {
+      curBlock = parseInt(blockMatch[1]) - 1;
+      if (!result[curBlock]) result[curBlock] = [];
+      curSub = '';
+      continue;
+    }
+
+    if (curBlock < 0) continue;
+
+    if (colB.startsWith('-')) {
+      curSub = colB.replace(/^-\s*/, '').trim();
+      const key = `${curBlock}||${curSub}`;
+      if (result.subRows[key] === undefined) result.subRows[key] = sheetRow;
+    } else if (colB.match(/^o\s/)) {
+      curSub = colB.replace(/^o\s+/, '').trim();
+      const key = `${curBlock}||${curSub}`;
+      if (result.subRows[key] === undefined) result.subRows[key] = sheetRow;
+    }
+
+    const contents = [colC, colD, colE, colF];
+    if (!contents.some(c => c)) continue;
+
+    contents.forEach((raw, hzIdx) => {
+      if (!raw) return;
+      raw.split(/[\n•]+/).map(s => s.trim()).filter(Boolean).forEach(text => {
+        result[curBlock].push({ sub: curSub, hzIdx, text, sheetRow });
+      });
+    });
+  }
+  return result;
+}
+
+function parseCSVLine(line) {
+  const res = []; let cur = '', inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') { if (inQ && line[i+1] === '"') { cur += '"'; i++; } else inQ = !inQ; }
+    else if (c === ',' && !inQ) { res.push(cur); cur = ''; }
+    else cur += c;
+  }
+  res.push(cur); return res;
 }
 
 // ── AGENDA SIDEBAR ──
@@ -454,9 +963,14 @@ function renderBlockContent(blockIdx) {
   container.innerHTML = html;
 }
 
+// ── FUZZY SUB MATCH (case-insensitive, trimmed) ──
+function subMatches(sheetSub, structureLabel) {
+  return sheetSub.trim().toLowerCase() === structureLabel.trim().toLowerCase();
+}
+
 // ── BUILD MINI HORIZON COLUMNS FOR ONE SUBCATEGORY ──
 function buildSubHorizons(blockIdx, gIdx, iIdx, subLabel) {
-  const sheetItems = (agendaData[blockIdx] || []).filter(it => it.sub === subLabel);
+  const sheetItems = (agendaData[blockIdx] || []).filter(it => subMatches(it.sub, subLabel));
 
   let html = '<div class="sub-horizons">';
   HZ_META.forEach((hz, hzIdx) => {
@@ -476,10 +990,12 @@ function buildSubHorizons(blockIdx, gIdx, iIdx, subLabel) {
     });
 
     // Local items (mark discussed + delete)
-    hzLocal.forEach((text, li) => {
+    hzLocal.forEach((item, li) => {
+      const text = typeof item === 'string' ? item : item.text;
+      const addedBy = typeof item === 'string' ? '' : (item.addedBy || '');
       const k = `l-${cellKey}-${li}`;
       const disc = discussedItems.has(k);
-      body += `<div class="hz-item local${disc ? ' discussed' : ''}" onclick="toggleItem('${k}',this)">${text}${disc ? '<span class="item-check">✓</span>' : ''}<button class="item-del" onclick="event.stopPropagation();removeLocalItem('${cellKey}',${li})">×</button></div>`;
+      body += `<div class="hz-item local${disc ? ' discussed' : ''}" onclick="toggleItem('${k}',this)">${text}${addedBy ? '<span class="hz-item-author">— ' + addedBy + '</span>' : ''}${disc ? '<span class="item-check">✓</span>' : ''}<button class="item-del" onclick="event.stopPropagation();removeLocalItem('${cellKey}',${li})">×</button></div>`;
     });
 
     if (!hzSheet.length && !hzLocal.length) {
@@ -506,12 +1022,12 @@ function addLocalItem(cellKey, inputEl) {
   const text = inputEl.value.trim();
   if (!text) return;
   if (!localItems[cellKey]) localItems[cellKey] = [];
-  localItems[cellKey].push(text);
+  localItems[cellKey].push({ text, addedBy: currentUser });
   renderBlockContent(activeBlock);
-  // Re-open the accordion item whose cellKey belongs to
-  const [bIdx, gIdx, iIdx] = cellKey.split('-').map(Number);
-  const subKey = `${bIdx}-${gIdx}-${iIdx}`;
-  // Sub is already in expandedSubs so renderBlockContent will keep it open
+  // Persist to Sheet
+  const [bIdx, gIdx, iIdx, hzIdx] = cellKey.split('-').map(Number);
+  const subLabel = BLOCK_STRUCTURE[bIdx]?.[gIdx]?.items?.[iIdx];
+  if (subLabel) writeToSheet(bIdx, subLabel, hzIdx, text);
 }
 
 function removeLocalItem(cellKey, localIdx) {
@@ -598,6 +1114,75 @@ function resetAll() {
   document.getElementById('commit-count').textContent = '0';
 }
 
+// ── RULES PANEL ──
+function renderRules() {
+  document.getElementById('rules-body').innerHTML = MEETING_RULES.map((r, i) => `
+    <div class="rule-item">
+      <div class="rule-left">
+        <span class="rule-num">${i + 1}</span>
+        <span class="rule-icon">${r.icon}</span>
+      </div>
+      <div>
+        <div class="rule-title">${r.title}</div>
+        ${r.desc ? `<div class="rule-desc">${r.desc}</div>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+function toggleRules() {
+  rulesOpen = !rulesOpen;
+  document.getElementById('rules-panel').classList.toggle('open', rulesOpen);
+  document.getElementById('rules-overlay').classList.toggle('open', rulesOpen);
+}
+
+// ── USER IDENTIFICATION ──
+function initUser() {
+  const stored = localStorage.getItem('liturgia_user');
+  if (stored) {
+    currentUser = stored;
+    showHeaderUser();
+  } else {
+    document.getElementById('user-modal').classList.add('open');
+    setTimeout(() => document.getElementById('um-name').focus(), 80);
+  }
+}
+
+function submitUser() {
+  const input = document.getElementById('um-name');
+  const errEl = document.getElementById('um-err');
+  const name = input.value.trim();
+  if (!name) {
+    input.classList.add('um-error');
+    errEl.textContent = 'Este campo es obligatorio para continuar.';
+    input.focus();
+    return;
+  }
+  currentUser = name;
+  localStorage.setItem('liturgia_user', name);
+  document.getElementById('user-modal').classList.remove('open');
+  showHeaderUser();
+  // Pre-fill persona field with the identified user
+  const pField = document.getElementById('f-persona');
+  if (pField && !pField.value) pField.value = currentUser;
+}
+
+function changeUser() {
+  currentUser = '';
+  localStorage.removeItem('liturgia_user');
+  document.getElementById('header-user').style.display = 'none';
+  const input = document.getElementById('um-name');
+  input.value = '';
+  input.classList.remove('um-error');
+  document.getElementById('um-err').textContent = '';
+  document.getElementById('user-modal').classList.add('open');
+  setTimeout(() => input.focus(), 80);
+}
+
+function showHeaderUser() {
+  document.getElementById('header-user-name').textContent = currentUser;
+  document.getElementById('header-user').style.display = 'flex';
+}
+
 // ── FORMAT ──
 function pad(n) { return String(n).padStart(2, '0'); }
 function fmtDT(dtStr) {
@@ -611,9 +1196,10 @@ function fmtDT(dtStr) {
 
 // ── FORM ──
 function clearForm() {
-  ['f-persona','f-compromiso','f-horas','f-desc','f-bloque'].forEach(id => {
+  ['f-compromiso','f-horas','f-desc','f-bloque'].forEach(id => {
     document.getElementById(id).value = '';
   });
+  document.getElementById('f-persona').value = currentUser;
 }
 
 async function saveCommitment() {
@@ -632,6 +1218,7 @@ async function saveCommitment() {
     horas: document.getElementById('f-horas').value || '—',
     bloque: document.getElementById('f-bloque').value || BLOCK_NAMES[activeBlock] || '—',
     timestamp: new Date().toISOString(),
+    registradoPor: currentUser,
   };
 
   commitments.push(commitment);
@@ -658,6 +1245,7 @@ function renderCommits() {
       <div class="ci-meta">
         <span>${c.dia} ${c.hora}</span>
         ${c.horas !== '—' ? '<span>' + c.horas + 'h</span>' : ''}
+        ${c.registradoPor ? '<span style="opacity:.7">reg. ' + c.registradoPor + '</span>' : ''}
       </div>
       ${c.desc ? `<div style="font-size:10px;color:var(--text3);margin-top:2px;line-height:1.4">${c.desc}</div>` : ''}
     </div>`).join('');
@@ -690,12 +1278,13 @@ function renderSummaryTable() {
     <td style="font-size:11px;color:var(--text3);max-width:200px">${c.desc || '—'}</td>
     <td style="font-family:var(--mono);font-size:11px;text-align:center">${c.horas}</td>
     <td><span class="badge b-gray">${c.bloque}</span></td>
+    <td style="font-size:11px;color:var(--text3)">${c.registradoPor || '—'}</td>
   </tr>`).join('');
 }
 
 function copySummary() {
   const lines = commitments.map(c =>
-    `${c.persona} → "${c.compromiso}" — ${c.dia} ${c.hora} (${c.horas}h) [${c.bloque}]${c.desc ? ' | ' + c.desc : ''}`
+    `${c.persona} → "${c.compromiso}" — ${c.dia} ${c.hora} (${c.horas}h) [${c.bloque}]${c.registradoPor ? ' (reg. ' + c.registradoPor + ')' : ''}${c.desc ? ' | ' + c.desc : ''}`
   );
   const text = `COMPROMISOS — ${new Date().toLocaleDateString('es-ES')}\n\n` + lines.join('\n');
   navigator.clipboard.writeText(text).then(() => showToast('✓ Copiado al portapapeles', 'success'));
