@@ -839,23 +839,48 @@ function renderGlobalView() {
   container.innerHTML = html;
 }
 
+// Parse the full CSV in one pass, correctly handling cells that contain
+// embedded newlines (quoted in CSV as "line1\nline2"). Returns rows[][]
+// where each row is an array of cell strings. rowIdx+1 = Google Sheets row number.
+function parseCSVRows(csv) {
+  const rows = [];
+  let row = [], cur = '', inQ = false;
+  for (let i = 0; i < csv.length; i++) {
+    const c = csv[i];
+    if (c === '"') {
+      if (inQ && csv[i + 1] === '"') { cur += '"'; i++; } // "" → escaped quote
+      else inQ = !inQ;
+    } else if (c === ',' && !inQ) {
+      row.push(cur); cur = '';
+    } else if (c === '\r' && !inQ) {
+      // ignore \r (handle \r\n Windows line endings)
+    } else if (c === '\n' && !inQ) {
+      row.push(cur); cur = '';
+      rows.push(row); row = [];
+    } else {
+      cur += c;
+    }
+  }
+  // Flush last row (file may not end with \n)
+  if (cur || row.length) { row.push(cur); rows.push(row); }
+  return rows;
+}
+
 function parseAgenda(csv) {
-  // Keep ALL lines (no filter) so lineIdx maps 1-to-1 to sheet row numbers.
-  const allLines = csv.split('\n');
+  const allRows = parseCSVRows(csv);
   const result = {};
   // subRows: { "blockIdx||subLabel": sheetRow_1indexed }
   // Used by writeToSheet to locate the target cell without scanning again.
+  // Each logical CSV row (even multi-line) = one Google Sheets row, so
+  // rowIdx+1 always matches the sheet row number correctly.
   result.subRows = {};
   let curBlock = -1, curSub = '';
 
-  for (let lineIdx = 0; lineIdx < allLines.length; lineIdx++) {
-    const sheetRow = lineIdx + 1; // 1-indexed, matches Apps Script getRange(row, col)
-    if (sheetRow <= 2) continue;  // Row 1 = empty spacer, Row 2 = column headers
+  for (let rowIdx = 0; rowIdx < allRows.length; rowIdx++) {
+    const sheetRow = rowIdx + 1; // 1-indexed — matches Apps Script getRange(row, col)
+    if (sheetRow <= 2) continue; // Row 1 = empty spacer, Row 2 = column headers
 
-    const line = allLines[lineIdx];
-    if (!line.includes(',')) continue; // empty row — keep lineIdx counting but skip
-
-    const cols = parseCSVLine(line);
+    const cols = allRows[rowIdx];
     const colB = (cols[1]||'').trim();
     const colC = (cols[2]||'').trim();
     const colD = (cols[3]||'').trim();
@@ -887,23 +912,13 @@ function parseAgenda(csv) {
 
     contents.forEach((raw, hzIdx) => {
       if (!raw) return;
+      // Split on newline or bullet — handles both "item1\nitem2" and "item1 • item2"
       raw.split(/[\n•]+/).map(s => s.trim()).filter(Boolean).forEach(text => {
         result[curBlock].push({ sub: curSub, hzIdx, text, sheetRow });
       });
     });
   }
   return result;
-}
-
-function parseCSVLine(line) {
-  const res = []; let cur = '', inQ = false;
-  for (let i = 0; i < line.length; i++) {
-    const c = line[i];
-    if (c === '"') { if (inQ && line[i+1] === '"') { cur += '"'; i++; } else inQ = !inQ; }
-    else if (c === ',' && !inQ) { res.push(cur); cur = ''; }
-    else cur += c;
-  }
-  res.push(cur); return res;
 }
 
 // ── AGENDA SIDEBAR ──
