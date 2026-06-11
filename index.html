@@ -27,10 +27,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .logo{font-size:15px;font-weight:800;color:var(--green)}
 .divider{width:1px;height:26px;background:var(--border)}
 .meeting-date{font-size:11px;color:var(--text3);font-family:var(--mono)}
-.master-timer{font-size:28px;font-weight:700;font-family:var(--mono);color:var(--text);letter-spacing:-1px;min-width:88px;text-align:center}
-.master-timer.running{color:var(--green)}
-.master-timer.over{color:var(--red);animation:blink 1s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
 .header-right{display:flex;align-items:center;gap:8px}
 .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:var(--font);transition:all .15s}
 .btn-primary{background:var(--green);color:#fff}
@@ -41,23 +37,21 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .btn-end:hover{background:#C0392B25}
 .btn-sm{padding:5px 10px;font-size:11px}
 
-/* LAYOUT  */
-.layout{display:grid;grid-template-columns:210px 1fr 310px;min-height:calc(100vh - 57px)}
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:200px 1fr 300px;min-height:calc(100vh - 57px)}
 
-/* LEFT */
+/* LEFT — AGENDA */
 .agenda-panel{background:var(--bg2);border-right:1px solid var(--border);padding:14px 10px;overflow-y:auto}
 .panel-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:10px;padding:0 4px}
 .ab{border-radius:var(--radius);margin-bottom:5px;border:1px solid var(--border);cursor:pointer;transition:all .15s;overflow:hidden}
 .ab:hover{border-color:var(--green-border)}
 .ab.active{border-color:var(--green);box-shadow:0 0 0 2px var(--green-bg)}
 .ab.done{opacity:.5}
-.ab-h{display:flex;align-items:center;gap:7px;padding:8px 10px;background:var(--bg3)}
+.ab-h{display:flex;align-items:center;gap:7px;padding:9px 10px;background:var(--bg3)}
 .ab-n{width:18px;height:18px;border-radius:50%;background:var(--border2);color:var(--text3);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--mono)}
 .ab.active .ab-n{background:var(--green);color:white}
 .ab.done .ab-n{background:var(--green-bg);color:var(--green-dark)}
 .ab-name{font-size:12px;font-weight:600;color:var(--text2);flex:1}
-.ab-timer{font-size:9px;font-family:var(--mono);color:var(--text3)}
-.ab.active .ab-timer{color:var(--green);font-weight:700}
 .ab.active .ab-name{color:var(--text)}
 .loading-agenda{padding:20px;text-align:center;color:var(--text3);font-size:12px}
 .spinner{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 8px}
@@ -68,36 +62,58 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 
 /* CENTER */
 .center-panel{padding:16px;overflow-y:auto;background:var(--bg)}
-.block-header-bar{background:var(--bg2);border:1.5px solid var(--green-border);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
-.bh-left{}
+.block-header-bar{background:var(--bg2);border:1.5px solid var(--green-border);border-radius:var(--radius-lg);padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
 .bh-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:3px}
 .bh-title{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-0.5px}
-.bh-right{display:flex;align-items:center;gap:8px}
-.block-elapsed{font-size:26px;font-weight:700;font-family:var(--mono);color:var(--green);letter-spacing:-1px}
-.block-elapsed.over{color:var(--red)}
-.block-nav{display:flex;gap:6px}
+.bh-right{display:flex;gap:6px}
+.center-empty{text-align:center;padding:50px 20px;color:var(--text3);font-size:13px;line-height:1.8}
+.center-empty strong{display:block;font-size:15px;color:var(--text2);margin-bottom:6px}
 
-/* HORIZON COLUMNS */
-.horizons{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.horizon-col{background:var(--bg2);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border)}
-.hz-header{padding:8px 10px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:white}
-.hz-corto .hz-header{background:var(--corto)}
-.hz-medio .hz-header{background:var(--medio)}
-.hz-largo .hz-header{background:var(--largo)}
-.hz-telemaco .hz-header{background:var(--telemaco)}
-.hz-body{padding:8px;min-height:80px}
+/* SUBCATEGORY ACCORDION */
+.sub-list{display:flex;flex-direction:column;gap:8px}
+.sub-group{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.sub-group-label{font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);padding:7px 14px;background:var(--green-bg);border-bottom:1px solid var(--green-border)}
+.sub-row{border-bottom:1px solid var(--border)}
+.sub-row:last-child{border-bottom:none}
+.sub-hd{display:flex;align-items:center;gap:9px;padding:10px 14px;cursor:pointer;background:var(--bg2);transition:background .15s;user-select:none}
+.sub-hd:hover{background:var(--bg3)}
+.sub-hd.open{background:var(--bg3)}
+.sub-arrow{font-size:10px;color:var(--text3);transition:transform .18s;flex-shrink:0;width:10px;text-align:center}
+.sub-arrow.open{transform:rotate(90deg);color:var(--green)}
+.sub-name{font-size:12px;font-weight:600;color:var(--text2);flex:1;line-height:1.35}
+.sub-hd:hover .sub-name,.sub-hd.open .sub-name{color:var(--text)}
+.sub-body{display:none;background:var(--bg);border-top:1px solid var(--border);padding:10px}
+.sub-body.open{display:block}
+
+/* MINI HORIZONS inside accordion */
+.sub-horizons{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.hz-mini{background:var(--bg2);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.hz-mini-hd{padding:6px 9px;color:white}
+.hz-mini-label{font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.hz-mini-desc{font-size:8px;font-weight:400;opacity:.85;line-height:1.3;margin-top:2px;font-style:italic}
+.hz-mini.hz-corto .hz-mini-hd{background:var(--corto)}
+.hz-mini.hz-medio .hz-mini-hd{background:var(--medio)}
+.hz-mini.hz-largo .hz-mini-hd{background:var(--largo)}
+.hz-mini.hz-telemaco .hz-mini-hd{background:var(--telemaco)}
+.hz-mini-body{padding:7px;min-height:60px}
 .hz-item{font-size:11px;color:var(--text2);padding:5px 7px;border-radius:5px;margin-bottom:4px;line-height:1.4;background:var(--bg3);border:1px solid var(--border);cursor:pointer;transition:all .15s;position:relative}
 .hz-item:hover{border-color:var(--border2)}
+.hz-item.local{padding-right:20px}
 .hz-item.discussed{opacity:.45;text-decoration:line-through}
 .hz-item .item-check{position:absolute;right:5px;top:5px;font-size:10px;color:var(--green)}
-.hz-empty{font-size:11px;color:var(--text3);padding:8px 7px;font-style:italic}
-.hz-sub{font-size:10px;font-weight:700;color:var(--text3);padding:3px 7px 2px;letter-spacing:.5px;text-transform:uppercase;margin-top:4px}
+.item-del{display:none;position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px;line-height:1;padding:0 2px;font-family:var(--mono)}
+.item-del:hover{color:var(--red)}
+.hz-item.local:hover .item-del{display:block}
+.hz-empty-mini{font-size:10px;color:var(--text3);padding:6px 4px;font-style:italic;text-align:center}
+.hz-add-row{padding-top:5px;margin-top:4px;border-top:1px dashed var(--border2)}
+.hz-add-input{width:100%;background:transparent;border:none;outline:none;font-size:10px;color:var(--text3);font-family:var(--font);padding:3px 5px;border-radius:3px;cursor:text}
+.hz-add-input:focus{background:var(--bg4);color:var(--text)}
+.hz-add-input::placeholder{color:var(--text3);opacity:.8}
 
-/* RIGHT */
+/* RIGHT — CAPTURE */
 .capture-panel{background:var(--bg2);border-left:1px solid var(--border);padding:14px;overflow-y:auto}
 .cp-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
-
-.liturgia-form{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px;margin-bottom:12px;overflow:hidden}
+.liturgia-form{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px;margin-bottom:12px}
 .ft{font-size:11px;font-weight:700;color:var(--text);margin-bottom:10px}
 .ft small{font-size:9px;font-weight:400;color:var(--text3);display:block;margin-top:1px}
 .ff{margin-bottom:7px}
@@ -106,11 +122,9 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .ff input,.ff select,.ff textarea{width:100%;background:var(--bg2);border:1px solid var(--border2);color:var(--text);border-radius:var(--radius);padding:6px 9px;font-size:12px;font-family:var(--font);outline:none;transition:border-color .15s}
 .ff input:focus,.ff select:focus,.ff textarea:focus{border-color:var(--green)}
 .ff textarea{resize:none;height:48px;line-height:1.4}
-.ff-row{display:grid;grid-template-columns:1fr;gap:6px}
+.ff-row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .form-actions{display:flex;gap:6px;margin-top:8px}
 .form-actions .btn{flex:1;justify-content:center}
-
-.commits-list{margin-top:2px}
 .ci{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px;margin-bottom:6px}
 .ci-top{display:flex;align-items:center;gap:6px;margin-bottom:3px}
 .ci-person{font-size:10px;font-weight:700;color:var(--green)}
@@ -119,10 +133,10 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .ci-meta{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:3px;display:flex;gap:8px;flex-wrap:wrap}
 .empty-ci{text-align:center;padding:20px 10px;color:var(--text3);font-size:11px}
 
-/* END MEETING MODAL */
+/* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center}
 .modal-overlay.open{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:0;width:90%;max-width:860px;max-height:88vh;display:flex;flex-direction:column;box-shadow:var(--shadow-md);animation:fadeUp .25s ease}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);width:90%;max-width:860px;max-height:88vh;display:flex;flex-direction:column;box-shadow:var(--shadow-md);animation:fadeUp .25s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .modal-header{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .modal-header h2{font-size:16px;font-weight:800;color:var(--text)}
@@ -137,17 +151,9 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .summary-table td{padding:8px 10px;font-size:12px;color:var(--text2);vertical-align:top}
 .summary-table td.td-person{font-weight:700;color:var(--text)}
 .badge{display:inline-flex;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:700}
-.b-corto{background:#C0392B15;color:var(--corto);border:1px solid #C0392B25}
-.b-medio{background:#B07D0A15;color:var(--medio);border:1px solid #B07D0A25}
-.b-largo{background:#2C6E9A15;color:var(--largo);border:1px solid #2C6E9A25}
-.b-telemaco{background:#7B3F9E15;color:var(--telemaco);border:1px solid #7B3F9E25}
 .b-gray{background:var(--bg3);color:var(--text3);border:1px solid var(--border2)}
-
-/* FILTER */
 .fsel{background:var(--bg2);border:1px solid var(--border2);color:var(--text);border-radius:var(--radius);padding:6px 9px;font-size:11px;font-family:var(--font);outline:none}
 .fsel:focus{border-color:var(--green)}
-
-/* TOAST */
 .toast{position:fixed;bottom:20px;right:20px;padding:9px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;z-index:999;display:none;animation:slideUp .3s ease}
 .toast.show{display:block}
 .toast.success{background:var(--green);color:white}
@@ -164,8 +170,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
     <div class="logo">Newry</div>
     <div class="divider"></div>
     <div class="meeting-date" id="meeting-date">—</div>
-    <div class="divider"></div>
-    <div class="master-timer" id="master-timer">00:00:00</div>
   </div>
   <div class="header-right">
     <button class="btn btn-primary" id="btn-master" onclick="toggleMaster()">▶ Iniciar reunión</button>
@@ -181,82 +185,65 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   <div class="agenda-panel">
     <div class="panel-label">Agenda</div>
     <div id="agenda-blocks">
-      <div class="loading-agenda"><div class="spinner"></div>Cargando agenda…</div>
+      <div class="loading-agenda"><div class="spinner"></div>Cargando…</div>
     </div>
     <div class="agenda-footer">
-      <div class="af-row"><span>Bloques completados</span><span id="af-done">0 / 6</span></div>
-      <div class="af-row"><span>Tiempo reunión</span><span>~85 min</span></div>
-      <div class="af-row"><span>Compromisos hoy</span><span id="af-commits">0</span></div>
+      <div class="af-row"><span>Completados</span><span id="af-done">0 / 6</span></div>
+      <div class="af-row"><span>Compromisos</span><span id="af-commits">0</span></div>
     </div>
   </div>
 
   <!-- CENTER — ACTIVE BLOCK -->
   <div class="center-panel">
     <div class="block-header-bar">
-      <div class="bh-left">
+      <div>
         <div class="bh-label">Bloque activo</div>
         <div class="bh-title" id="active-title">— Selecciona un bloque —</div>
       </div>
       <div class="bh-right">
-        <div class="block-elapsed" id="block-elapsed">00:00</div>
-        <div class="block-nav">
-          <button class="btn btn-ghost btn-sm" onclick="prevBlock()">← Ant.</button>
-          <button class="btn btn-ghost btn-sm" onclick="markDone()">✓ Completar</button>
-          <button class="btn btn-primary btn-sm" onclick="nextBlock()">Sig. →</button>
-        </div>
+        <button class="btn btn-ghost btn-sm" onclick="prevBlock()">← Ant.</button>
+        <button class="btn btn-ghost btn-sm" onclick="markDone()">✓ Completar</button>
+        <button class="btn btn-primary btn-sm" onclick="nextBlock()">Sig. →</button>
       </div>
     </div>
-
-    <div class="horizons" id="horizons-grid">
-      <div class="horizon-col hz-corto"><div class="hz-header">Corto plazo</div><div class="hz-body"><div class="hz-empty">Activa un bloque</div></div></div>
-      <div class="horizon-col hz-medio"><div class="hz-header">Medio plazo</div><div class="hz-body"><div class="hz-empty">Activa un bloque</div></div></div>
-      <div class="horizon-col hz-largo"><div class="hz-header">Largo plazo</div><div class="hz-body"><div class="hz-empty">Activa un bloque</div></div></div>
-      <div class="horizon-col hz-telemaco"><div class="hz-header">Telémaco</div><div class="hz-body"><div class="hz-empty">Activa un bloque</div></div></div>
+    <div id="block-content">
+      <div class="center-empty">
+        <strong>Bienvenido a la Liturgia de Reuniones</strong>
+        Selecciona un bloque en la barra izquierda<br>para ver sus subcategorías y horizontes de acción.
+      </div>
     </div>
   </div>
 
   <!-- RIGHT — CAPTURE -->
   <div class="capture-panel">
-    <div class="cp-label">Nueva liturgia</div>
-
+    <div class="cp-label">Registrar compromiso</div>
     <div class="liturgia-form">
       <div class="ft">
-        Registrar compromiso
-        <small>A se compromete a B el día C a las D — E — F horas</small>
+        Nuevo compromiso
+        <small>A se compromete a B el día C — D horas</small>
       </div>
-
       <div class="ff">
         <label><span class="fk">A</span> Persona</label>
-        <select id="f-persona">
-          <option value="">Seleccionar…</option>
-          <option>Anselmo Carrascosa</option>
-          <option>Raquel Álvarez</option>
-          <option>Diego Spampinato</option>
-          <option>Paco Camuñas</option>
-        </select>
+        <input type="text" id="f-persona" placeholder="Nombre de la persona…">
       </div>
-
       <div class="ff">
-        <label><span class="fk">B</span> Compromiso (sustantivo)</label>
+        <label><span class="fk">B</span> Compromiso</label>
         <input type="text" id="f-compromiso" placeholder="ej. Documento funcional CRM">
       </div>
-
       <div class="ff-row">
         <div class="ff">
-          <label><span class="fk">C+D</span> Fecha y hora de entrega</label>
+          <label><span class="fk">C</span> Fecha y hora</label>
           <input type="datetime-local" id="f-datetime">
         </div>
         <div class="ff">
-          <label><span class="fk">F</span> Horas requeridas</label>
-          <input type="number" id="f-horas" placeholder="ej. 3" min="0.5" step="0.5">
+          <label><span class="fk">D</span> Horas</label>
+          <input type="number" id="f-horas" placeholder="3" min="0.5" step="0.5">
         </div>
       </div>
-
       <div class="ff">
-        <label><span class="fk">E</span> Descripción detallada</label>
-        <textarea id="f-desc" placeholder="1-2 líneas con el resultado esperado…"></textarea>
+        <label>Descripción</label>
+        <textarea id="f-desc" placeholder="Resultado esperado…"></textarea>
       </div>
-
       <div class="ff">
         <label>Bloque</label>
         <select id="f-bloque">
@@ -269,16 +256,14 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
           <option>Gestión</option>
         </select>
       </div>
-
       <div class="form-actions">
         <button class="btn btn-primary btn-sm" onclick="saveCommitment()">Guardar →</button>
         <button class="btn btn-ghost btn-sm" onclick="clearForm()">Limpiar</button>
       </div>
     </div>
-
     <div class="cp-label">Esta sesión <span id="commit-count" style="color:var(--green);font-family:var(--mono)">0</span></div>
     <div id="commits-list">
-      <div class="empty-ci">Los compromisos registrados aparecerán aquí</div>
+      <div class="empty-ci">Los compromisos aparecerán aquí</div>
     </div>
   </div>
 </div>
@@ -294,25 +279,15 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
       <button class="btn btn-ghost btn-sm" onclick="closeEndModal()">✕ Cerrar</button>
     </div>
     <div class="modal-filters">
-      <select class="fsel" id="mf-persona" onchange="renderSummaryTable()">
-        <option value="">Todas las personas</option>
-        <option>Anselmo Carrascosa</option>
-        <option>Raquel Álvarez</option>
-        <option>Diego Spampinato</option>
-        <option>Paco Camuñas</option>
-      </select>
+      <input type="text" class="fsel" id="mf-persona" placeholder="Filtrar por persona…" oninput="renderSummaryTable()">
       <select class="fsel" id="mf-bloque" onchange="renderSummaryTable()">
         <option value="">Todos los bloques</option>
-        <option>Pilares</option>
-        <option>Comercial</option>
-        <option>Operaciones</option>
-        <option>Marketing</option>
-        <option>Producto</option>
-        <option>Gestión</option>
+        <option>Pilares</option><option>Comercial</option><option>Operaciones</option>
+        <option>Marketing</option><option>Producto</option><option>Gestión</option>
       </select>
     </div>
     <div class="modal-body">
-      <table class="summary-table" id="summary-table">
+      <table class="summary-table">
         <thead><tr>
           <th>Persona</th><th>Compromiso</th><th>Entrega</th><th>Descripción</th><th>Horas</th><th>Bloque</th>
         </tr></thead>
@@ -320,8 +295,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
       </table>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost btn-sm" id="btn-copy-summary" onclick="copySummary()">📋 Copiar</button>
-      <button class="btn btn-primary btn-sm" onclick="saveToSheet()">Guardar en Sheet →</button>
+      <button class="btn btn-ghost btn-sm" onclick="copySummary()">📋 Copiar</button>
       <button class="btn btn-ghost btn-sm" onclick="closeEndModal()">Cerrar</button>
     </div>
   </div>
@@ -330,349 +304,351 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 <div class="toast" id="toast"></div>
 
 <script>
-// ── CONFIG — edita estas dos líneas ──
-const PUB_KEY = '2PACX-1vSj97TIqFr3lAmdnbeod39bzTY-TvENYFqfzhaMvdcuGhQcgpzMjMQq8EJbJ1xcwrXoD4tD5cOhQArO';
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlyRkbXk-SH1QkY47la0YlQeSgZXdvxPqQMQ_m2_CGb3lNecP83N9VggjW76AaRsClNg/exec';
+// ── CONFIG ──
 const SHEET_ID = '1xZ1ri7PFGtMMQnxU9064ZUAbwvvDbk8kKR6xbVz4SiU';
 
-// ── CONSTANTS ──
-const BLOCK_NAMES  = ['Pilares','Comercial','Operaciones','Marketing','Producto','Gestión'];
-const BLOCK_LIMITS = [10,20,15,15,15,10]; // minutos
-const HZ_LABELS    = ['Corto plazo','Medio plazo','Largo plazo','Telémaco'];
-const HZ_CLASSES   = ['hz-corto','hz-medio','hz-largo','hz-telemaco'];
+// ── HORIZON DEFINITIONS ──
+const HZ_CLASSES = ['hz-corto','hz-medio','hz-largo','hz-telemaco'];
+const HZ_META = [
+  { label: 'Corto plazo',       desc: 'Incidencias (acciones correctivas) — expectativa no cumplida que requiere acción urgente de mitigación (24h a 1 semana)' },
+  { label: 'Medio plazo',       desc: 'Planes de mejora — de 2 a 8 semanas de trabajo (normalmente intradepartamental)' },
+  { label: 'Largo plazo',       desc: 'Proyectos de transformación — de 3 meses a 9 meses (normalmente interdepartamental)' },
+  { label: 'Proyecto Telémaco', desc: 'Encargos de base tecnológica realizados por becarios (Telemacos), duración 3–5 meses' },
+];
+
+// ── BLOCK NAMES ──
+const BLOCK_NAMES = ['Pilares','Comercial','Operaciones','Marketing','Producto','Gestión'];
+
+// ── SUBCATEGORY STRUCTURE ──
+// Each block is an array of groups.
+// group.label = section header (null = no header, flat list)
+// group.items = array of subcategory strings
+const BLOCK_STRUCTURE = [
+  // 0: Pilares
+  [
+    {
+      label: 'Tecnología',
+      items: ['Tecnología (incidencias)'],
+    },
+    {
+      label: 'Talento',
+      items: [
+        'ABC — A: reconocimiento público / B: rec. privado, indicación de mejora / C: rec. privado, ultimátum',
+        'Solicitudes de nuevas incorporaciones / asignación de persona-puesto',
+        'Programa de formación, desarrollo, coaching y mentoring',
+        'Organigrama: problemas, obstáculos y fricciones',
+      ],
+    },
+    {
+      label: 'Outsourcing',
+      items: [
+        'Solicitudes de nuevos proveedores / planificación de carga / aumento de capacidades',
+        'Evaluación de desempeño de proveedores antiguos',
+      ],
+    },
+  ],
+  // 1: Comercial
+  [{
+    label: null,
+    items: ['Mejora continua (problemáticas)', 'Nuevas oportunidades', 'Funnel (top oportunidades)'],
+  }],
+  // 2: Operaciones
+  [{
+    label: null,
+    items: ['Mejora continua (problemáticas)', 'Lanzamientos activos', 'Nuevos lanzamientos a priorizar', 'Backlog operativo'],
+  }],
+  // 3: Marketing
+  [{
+    label: null,
+    items: ['Mejora continua (problemáticas)', 'Nuevas oportunidades de negocio', 'Funnel de lanzamiento', 'Optimización de performance'],
+  }],
+  // 4: Producto
+  [{
+    label: null,
+    items: ['Mejora continua', 'Nuevas oportunidades solicitadas por comercial / otros departamentos', 'Nuevos productos (funnel)', 'Desarrollo de servicios'],
+  }],
+  // 5: Gestión
+  [{
+    label: null,
+    items: ['Agenda', 'Procesos / metodología / eficiencia', 'Organigrama / KPIs / Dashboards / Reporting', 'Administración, marketing y finanzas', 'Automatización IA / eficiencia'],
+  }],
+];
 
 // ── STATE ──
-let masterRunning=false, masterSec=0, masterIv=null;
-let activeBlock=-1, blockSec=0, blockIv=null;
-const doneBlocks=new Set();
-let agendaData={}; // {blockIdx: [{sub, corto:[], medio:[], largo:[], telemaco:[]}]}
-let commitments=[];
-let discussedItems=new Set(); // "blockIdx-hzIdx-itemIdx"
+let masterRunning = false;
+let activeBlock = -1;
+const doneBlocks = new Set();
+const expandedSubs = new Set(); // keys: "blockIdx-gIdx-iIdx"
+const discussedItems = new Set();
+let localItems = {}; // { "bIdx-gIdx-iIdx-hzIdx": ["text1", "text2", ...] }
+let commitments = [];
+let agendaData = {}; // data from Sheet (optional)
 
 // ── INIT ──
-function init(){
-  const now=new Date();
-  const days=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
-  const months=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-  document.getElementById('meeting-date').textContent=
-    days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()]+' '+now.getFullYear();
-  document.getElementById('sheet-link').href=
-    `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit`;
-  // Default datetime to next weekday 10:00
-  const dt=new Date(); dt.setHours(10,0,0,0);
-  document.getElementById('f-datetime').value=
-    dt.toISOString().slice(0,16);
-  loadAgenda();
+function init() {
+  const now = new Date();
+  const days = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  const months = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  document.getElementById('meeting-date').textContent =
+    days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+  document.getElementById('sheet-link').href = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit`;
+  const dt = new Date(); dt.setHours(10,0,0,0);
+  document.getElementById('f-datetime').value = dt.toISOString().slice(0,16);
+  renderAgendaBlocks();
 }
 
-// ── LOAD AGENDA FROM SHEET ──
-async function loadAgenda(){
-  if(!PUB_KEY||PUB_KEY==='YOUR_PUB_KEY_HERE'){
-    renderAgendaBlocks({}); return;
-  }
-  try{
-    const url = `https://docs.google.com/spreadsheets/d/e/${PUB_KEY}/pub?gid=1385608406&single=true&output=csv`;
-    const r=await fetch(url);
-    const text=await r.text();
-    agendaData=parseAgenda(text);
-    renderAgendaBlocks(agendaData);
-  }catch(e){
-    console.error('Agenda load failed',e);
-    renderAgendaBlocks({});
-  }
-}
-
-function parseAgenda(csv){
-  const lines=csv.split('\n').filter(l=>l.trim());
-  const result={};
-  let curBlock=-1;
-  let curSub='';
-
-  for(const line of lines){
-    const cols=parseCSVLine(line);
-    const c1=(cols[1]||'').trim();
-    const c2=(cols[2]||'').trim();
-    const c3=(cols[3]||'').trim();
-    const c4=(cols[4]||'').trim();
-    const c5=(cols[5]||'').trim();
-
-    // Detect block header
-    const blockMatch=c1.match(/Bloque\s*(\d+)/i);
-    if(blockMatch){
-      curBlock=parseInt(blockMatch[1])-1;
-      if(!result[curBlock])result[curBlock]=[];
-      curSub='';
-      continue;
-    }
-
-    if(curBlock<0)continue;
-
-    // Detect sub-item (starts with - or o or spaces)
-    if(c1.startsWith('-')||c1.match(/^\s*o\s/)){
-      curSub=c1.replace(/^[-\s·•oO]+/,'').trim();
-      if(!result[curBlock])result[curBlock]=[];
-    }
-
-    // Extract content from horizon columns
-    const contents=[c2,c3,c4,c5];
-    const hasContent=contents.some(c=>c&&c.trim());
-    if(!hasContent)continue;
-
-    // Split content by bullets/newlines into individual items
-    contents.forEach((raw,hzIdx)=>{
-      if(!raw||!raw.trim())return;
-      const items=raw.split(/[•\n]+/).map(s=>s.trim()).filter(Boolean);
-      items.forEach(item=>{
-        if(!result[curBlock])result[curBlock]=[];
-        result[curBlock].push({sub:curSub,hzIdx,text:item});
-      });
-    });
-  }
-  return result;
-}
-
-function parseCSVLine(line){
-  const res=[];let cur='';let inQ=false;
-  for(let i=0;i<line.length;i++){
-    const c=line[i];
-    if(c==='"'){if(inQ&&line[i+1]==='"'){cur+='"';i++;}else inQ=!inQ;}
-    else if(c===','&&!inQ){res.push(cur);cur='';}
-    else cur+=c;
-  }
-  res.push(cur);return res;
-}
-
-// ── RENDER AGENDA BLOCKS ──
-function renderAgendaBlocks(data){
-  const container=document.getElementById('agenda-blocks');
-  container.innerHTML=BLOCK_NAMES.map((name,i)=>{
-    const items=data[i]||[];
-    const count=items.length;
-    return`<div class="ab${activeBlock===i?' active':''}${doneBlocks.has(i)?' done':''}" id="ab-${i}" onclick="activateBlock(${i})">
+// ── AGENDA SIDEBAR ──
+function renderAgendaBlocks() {
+  document.getElementById('agenda-blocks').innerHTML = BLOCK_NAMES.map((name, i) => `
+    <div class="ab${activeBlock===i?' active':''}${doneBlocks.has(i)?' done':''}" onclick="activateBlock(${i})">
       <div class="ab-h">
-        <div class="ab-n">${doneBlocks.has(i)?'✓':(i+1)}</div>
+        <div class="ab-n">${doneBlocks.has(i) ? '✓' : (i+1)}</div>
         <div class="ab-name">${name}</div>
-        <div class="ab-timer" id="abt-${i}">${BLOCK_LIMITS[i]}'${count?' · '+count+' items':''}</div>
       </div>
-    </div>`;
-  }).join('');
+    </div>`).join('');
 }
 
 // ── ACTIVATE BLOCK ──
-function activateBlock(idx){
-  stopBlockTimer();
-  activeBlock=idx;
-  blockSec=0;
+function activateBlock(idx) {
+  activeBlock = idx;
+  renderAgendaBlocks();
+  document.getElementById('active-title').textContent = BLOCK_NAMES[idx];
+  document.getElementById('f-bloque').value = BLOCK_NAMES[idx];
+  renderBlockContent(idx);
+}
 
-  // Update agenda sidebar
-  document.querySelectorAll('.ab').forEach((el,i)=>{
-    el.className='ab'+(doneBlocks.has(i)?' done':'')+(i===idx?' active':'');
+// ── RENDER BLOCK CONTENT (accordion) ──
+function renderBlockContent(blockIdx) {
+  const container = document.getElementById('block-content');
+  if (blockIdx < 0) {
+    container.innerHTML = `<div class="center-empty"><strong>Bienvenido a la Liturgia de Reuniones</strong>Selecciona un bloque en la barra izquierda<br>para ver sus subcategorías y horizontes de acción.</div>`;
+    return;
+  }
+
+  const structure = BLOCK_STRUCTURE[blockIdx];
+  let html = '<div class="sub-list">';
+
+  structure.forEach((group, gIdx) => {
+    html += `<div class="sub-group">`;
+    if (group.label) {
+      html += `<div class="sub-group-label">${group.label}</div>`;
+    }
+    group.items.forEach((itemName, iIdx) => {
+      const key = `${blockIdx}-${gIdx}-${iIdx}`;
+      const isOpen = expandedSubs.has(key);
+      html += `
+        <div class="sub-row">
+          <div class="sub-hd${isOpen ? ' open' : ''}" onclick="toggleSub('${key}')">
+            <span class="sub-arrow${isOpen ? ' open' : ''}">▶</span>
+            <span class="sub-name">${itemName}</span>
+          </div>
+          <div class="sub-body${isOpen ? ' open' : ''}" id="subbody-${key}">
+            ${buildSubHorizons(blockIdx, gIdx, iIdx, itemName)}
+          </div>
+        </div>`;
+    });
+    html += `</div>`;
   });
 
-  // Update header
-  document.getElementById('active-title').textContent=BLOCK_NAMES[idx];
-  document.getElementById('block-elapsed').textContent='00:00';
-  document.getElementById('block-elapsed').className='block-elapsed';
-
-  // Auto-select bloque in form
-  document.getElementById('f-bloque').value=BLOCK_NAMES[idx];
-
-  // Render horizons
-  renderHorizons(idx);
-
-  if(masterRunning) startBlockTimer();
+  html += '</div>';
+  container.innerHTML = html;
 }
 
-function renderHorizons(blockIdx){
-  const grid=document.getElementById('horizons-grid');
-  const items=agendaData[blockIdx]||[];
+// ── BUILD MINI HORIZON COLUMNS FOR ONE SUBCATEGORY ──
+function buildSubHorizons(blockIdx, gIdx, iIdx, subLabel) {
+  const sheetItems = (agendaData[blockIdx] || []).filter(it => it.sub === subLabel);
 
-  grid.innerHTML=HZ_LABELS.map((label,hzIdx)=>{
-    const hzItems=items.filter(it=>it.hzIdx===hzIdx);
-    let body='';
-    if(!hzItems.length){
-      body='<div class="hz-empty">Sin items</div>';
-    }else{
-      // Group by sub
-      const subs={};
-      hzItems.forEach(it=>{
-        const key=it.sub||'';
-        if(!subs[key])subs[key]=[];
-        subs[key].push(it);
-      });
-      Object.entries(subs).forEach(([sub,sitems])=>{
-        if(sub)body+=`<div class="hz-sub">${sub}</div>`;
-        sitems.forEach((it,iIdx)=>{
-          const key=`${blockIdx}-${hzIdx}-${iIdx}`;
-          const disc=discussedItems.has(key);
-          body+=`<div class="hz-item${disc?' discussed':''}" onclick="toggleItem('${key}',this)">
-            ${it.text}${disc?'<span class="item-check">✓</span>':''}
-          </div>`;
-        });
-      });
+  let html = '<div class="sub-horizons">';
+  HZ_META.forEach((hz, hzIdx) => {
+    const cellKey = `${blockIdx}-${gIdx}-${iIdx}-${hzIdx}`;
+    const hzSheet = sheetItems
+      .map((it, origIdx) => ({...it, origIdx}))
+      .filter(it => it.hzIdx === hzIdx);
+    const hzLocal = localItems[cellKey] || [];
+
+    let body = '';
+
+    // Sheet items (mark discussed, no delete)
+    hzSheet.forEach(it => {
+      const k = `s-${cellKey}-${it.origIdx}`;
+      const disc = discussedItems.has(k);
+      body += `<div class="hz-item${disc ? ' discussed' : ''}" onclick="toggleItem('${k}',this)">${it.text}${disc ? '<span class="item-check">✓</span>' : ''}</div>`;
+    });
+
+    // Local items (mark discussed + delete)
+    hzLocal.forEach((text, li) => {
+      const k = `l-${cellKey}-${li}`;
+      const disc = discussedItems.has(k);
+      body += `<div class="hz-item local${disc ? ' discussed' : ''}" onclick="toggleItem('${k}',this)">${text}${disc ? '<span class="item-check">✓</span>' : ''}<button class="item-del" onclick="event.stopPropagation();removeLocalItem('${cellKey}',${li})">×</button></div>`;
+    });
+
+    if (!hzSheet.length && !hzLocal.length) {
+      body = '<div class="hz-empty-mini">—</div>';
     }
-    return`<div class="horizon-col ${HZ_CLASSES[hzIdx]}">
-      <div class="hz-header">${label}</div>
-      <div class="hz-body">${body}</div>
+
+    // Inline add input
+    body += `<div class="hz-add-row"><input type="text" class="hz-add-input" placeholder="+ Añadir…" onkeydown="if(event.key==='Enter'&&this.value.trim())addLocalItem('${cellKey}',this)"></div>`;
+
+    html += `<div class="hz-mini ${HZ_CLASSES[hzIdx]}">
+      <div class="hz-mini-hd">
+        <div class="hz-mini-label">${hz.label}</div>
+        <div class="hz-mini-desc">${hz.desc}</div>
+      </div>
+      <div class="hz-mini-body">${body}</div>
     </div>`;
-  }).join('');
+  });
+  html += '</div>';
+  return html;
 }
 
-function toggleItem(key,el){
-  if(discussedItems.has(key)){
+// ── LOCAL ITEM MANAGEMENT ──
+function addLocalItem(cellKey, inputEl) {
+  const text = inputEl.value.trim();
+  if (!text) return;
+  if (!localItems[cellKey]) localItems[cellKey] = [];
+  localItems[cellKey].push(text);
+  renderBlockContent(activeBlock);
+  // Re-open the accordion item whose cellKey belongs to
+  const [bIdx, gIdx, iIdx] = cellKey.split('-').map(Number);
+  const subKey = `${bIdx}-${gIdx}-${iIdx}`;
+  // Sub is already in expandedSubs so renderBlockContent will keep it open
+}
+
+function removeLocalItem(cellKey, localIdx) {
+  if (!localItems[cellKey]) return;
+  localItems[cellKey].splice(localIdx, 1);
+  if (!localItems[cellKey].length) delete localItems[cellKey];
+  renderBlockContent(activeBlock);
+}
+
+// ── TOGGLE SUBCATEGORY ──
+function toggleSub(key) {
+  const body = document.getElementById('subbody-' + key);
+  const hd = body.previousElementSibling;
+  const arrow = hd.querySelector('.sub-arrow');
+
+  if (expandedSubs.has(key)) {
+    expandedSubs.delete(key);
+    body.classList.remove('open');
+    hd.classList.remove('open');
+    arrow.classList.remove('open');
+  } else {
+    expandedSubs.add(key);
+    body.classList.add('open');
+    hd.classList.add('open');
+    arrow.classList.add('open');
+  }
+}
+
+// ── TOGGLE ITEM (discussed) ──
+function toggleItem(key, el) {
+  if (discussedItems.has(key)) {
     discussedItems.delete(key);
     el.classList.remove('discussed');
     el.querySelector('.item-check')?.remove();
-  }else{
+  } else {
     discussedItems.add(key);
     el.classList.add('discussed');
-    if(!el.querySelector('.item-check')){
-      const ck=document.createElement('span');
-      ck.className='item-check';ck.textContent='✓';
+    if (!el.querySelector('.item-check')) {
+      const ck = document.createElement('span');
+      ck.className = 'item-check'; ck.textContent = '✓';
       el.appendChild(ck);
     }
   }
 }
 
-// ── MASTER TIMER ──
-function toggleMaster(){
-  masterRunning=!masterRunning;
-  const btn=document.getElementById('btn-master');
-  const timer=document.getElementById('master-timer');
-  if(masterRunning){
-    btn.textContent='⏸ Pausar';
-    btn.className='btn btn-ghost';
-    timer.className='master-timer running';
-    masterIv=setInterval(()=>{
-      masterSec++;
-      document.getElementById('master-timer').textContent=fmtFull(masterSec);
-      if(masterSec>=90*60)document.getElementById('master-timer').className='master-timer over';
-    },1000);
-    if(activeBlock===-1)activateBlock(0);
-    else startBlockTimer();
-  }else{
-    btn.textContent='▶ Reanudar';
-    btn.className='btn btn-primary';
-    timer.className='master-timer';
-    clearInterval(masterIv);
-    stopBlockTimer();
+// ── MASTER TOGGLE ──
+function toggleMaster() {
+  masterRunning = !masterRunning;
+  const btn = document.getElementById('btn-master');
+  if (masterRunning) {
+    btn.textContent = '⏸ Pausar';
+    btn.className = 'btn btn-ghost';
+    if (activeBlock === -1) activateBlock(0);
+  } else {
+    btn.textContent = '▶ Reanudar';
+    btn.className = 'btn btn-primary';
   }
 }
 
-function startBlockTimer(){
-  clearInterval(blockIv);
-  blockIv=setInterval(()=>{
-    blockSec++;
-    const el=document.getElementById('block-elapsed');
-    el.textContent=fmt(blockSec);
-    const limit=BLOCK_LIMITS[activeBlock]*60;
-    if(blockSec>limit)el.className='block-elapsed over';
-    // Update badge
-    if(document.getElementById('abt-'+activeBlock)){
-      const rem=limit-blockSec;
-      const items=agendaData[activeBlock]||[];
-      const suffix=items.length?' · '+items.length+' items':'';
-      document.getElementById('abt-'+activeBlock).textContent=
-        rem>=0?Math.ceil(rem/60)+"'"+suffix:'+'+Math.floor(-rem/60)+"'"+suffix;
-    }
-  },1000);
-}
-
-function stopBlockTimer(){clearInterval(blockIv);blockIv=null;}
-
-function nextBlock(){if(activeBlock<5)activateBlock(activeBlock+1);}
-function prevBlock(){if(activeBlock>0)activateBlock(activeBlock-1);}
-function markDone(){
-  if(activeBlock>=0){
+function nextBlock() { if (activeBlock < 5) activateBlock(activeBlock + 1); }
+function prevBlock() { if (activeBlock > 0) activateBlock(activeBlock - 1); }
+function markDone() {
+  if (activeBlock >= 0) {
     doneBlocks.add(activeBlock);
-    renderAgendaBlocks(agendaData);
-    document.getElementById('af-done').textContent=doneBlocks.size+' / 6';
-    if(activeBlock<5)activateBlock(activeBlock+1);
+    renderAgendaBlocks();
+    document.getElementById('af-done').textContent = doneBlocks.size + ' / 6';
+    if (activeBlock < 5) activateBlock(activeBlock + 1);
   }
 }
 
-function resetAll(){
-  if(!confirm('¿Resetear la reunión? Los compromisos guardados en el Sheet se conservan.'))return;
-  masterRunning=false;masterSec=0;clearInterval(masterIv);
-  document.getElementById('master-timer').textContent='00:00:00';
-  document.getElementById('master-timer').className='master-timer';
-  document.getElementById('btn-master').textContent='▶ Iniciar reunión';
-  document.getElementById('btn-master').className='btn btn-primary';
-  stopBlockTimer();blockSec=0;activeBlock=-1;
-  document.getElementById('block-elapsed').textContent='00:00';
-  document.getElementById('active-title').textContent='— Selecciona un bloque —';
-  doneBlocks.clear();discussedItems.clear();commitments=[];
-  renderAgendaBlocks(agendaData);
-  renderHorizons(-1);
+function resetAll() {
+  if (!confirm('¿Resetear la reunión?')) return;
+  masterRunning = false;
+  document.getElementById('btn-master').textContent = '▶ Iniciar reunión';
+  document.getElementById('btn-master').className = 'btn btn-primary';
+  activeBlock = -1;
+  document.getElementById('active-title').textContent = '— Selecciona un bloque —';
+  doneBlocks.clear(); expandedSubs.clear(); discussedItems.clear(); commitments = []; localItems = {};
+  renderAgendaBlocks();
+  renderBlockContent(-1);
   renderCommits();
-  document.getElementById('af-done').textContent='0 / 6';
-  document.getElementById('af-commits').textContent='0';
-  document.getElementById('commit-count').textContent='0';
+  document.getElementById('af-done').textContent = '0 / 6';
+  document.getElementById('af-commits').textContent = '0';
+  document.getElementById('commit-count').textContent = '0';
 }
 
 // ── FORMAT ──
-function fmt(s){const m=Math.floor(s/60),sec=s%60;return pad(m)+':'+pad(sec);}
-function fmtFull(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;return pad(h)+':'+pad(m)+':'+pad(sec);}
-function pad(n){return String(n).padStart(2,'0');}
-function fmtDT(dtStr){
-  if(!dtStr)return'—';
-  try{
-    const d=new Date(dtStr);
-    const days=['dom','lun','mar','mié','jue','vie','sáb'];
-    return days[d.getDay()]+' '+d.getDate()+'/'+pad(d.getMonth()+1)+' '+pad(d.getHours())+':'+pad(d.getMinutes());
-  }catch{return dtStr;}
+function pad(n) { return String(n).padStart(2, '0'); }
+function fmtDT(dtStr) {
+  if (!dtStr) return '—';
+  try {
+    const d = new Date(dtStr);
+    const days = ['dom','lun','mar','mié','jue','vie','sáb'];
+    return days[d.getDay()] + ' ' + d.getDate() + '/' + pad(d.getMonth()+1) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+  } catch { return dtStr; }
 }
 
 // ── FORM ──
-function clearForm(){
-  ['f-persona','f-compromiso','f-horas','f-desc','f-bloque'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el.tagName==='SELECT')el.value='';
-    else el.value='';
+function clearForm() {
+  ['f-persona','f-compromiso','f-horas','f-desc','f-bloque'].forEach(id => {
+    document.getElementById(id).value = '';
   });
 }
 
-async function saveCommitment(){
-  const persona=document.getElementById('f-persona').value;
-  const compromiso=document.getElementById('f-compromiso').value.trim();
-  if(!persona||!compromiso){showToast('⚠ Persona y compromiso son obligatorios','warn');return;}
+async function saveCommitment() {
+  const persona = document.getElementById('f-persona').value.trim();
+  const compromiso = document.getElementById('f-compromiso').value.trim();
+  if (!persona || !compromiso) { showToast('⚠ Persona y compromiso son obligatorios', 'warn'); return; }
 
-  const dt=document.getElementById('f-datetime').value;
-  const commitment={
-    persona,
-    compromiso,
-    datetime:dt,
-    dia:dt?fmtDT(dt).split(' ')[0]+' '+fmtDT(dt).split(' ')[1]:'—',
-    hora:dt?fmtDT(dt).split(' ')[2]||'—':'—',
-    desc:document.getElementById('f-desc').value.trim(),
-    horas:document.getElementById('f-horas').value||'—',
-    bloque:document.getElementById('f-bloque').value||BLOCK_NAMES[activeBlock]||'—',
-    timestamp:new Date().toISOString()
+  const dt = document.getElementById('f-datetime').value;
+  const dtParts = dt ? fmtDT(dt).split(' ') : [];
+  const commitment = {
+    persona, compromiso,
+    datetime: dt,
+    dia: dtParts.length >= 2 ? dtParts[0] + ' ' + dtParts[1] : '—',
+    hora: dtParts[2] || '—',
+    desc: document.getElementById('f-desc').value.trim(),
+    horas: document.getElementById('f-horas').value || '—',
+    bloque: document.getElementById('f-bloque').value || BLOCK_NAMES[activeBlock] || '—',
+    timestamp: new Date().toISOString(),
   };
 
   commitments.push(commitment);
   renderCommits();
-  document.getElementById('af-commits').textContent=commitments.length;
-  document.getElementById('commit-count').textContent=commitments.length;
-
-  if(APPS_SCRIPT_URL){
-    try{
-      await fetch(APPS_SCRIPT_URL,{method:'POST',body:JSON.stringify({action:'add_row',...commitment})});
-      showToast('✓ Guardado en Sheet','success');
-    }catch{showToast('⚠ Error al guardar en Sheet','error');}
-  }else{
-    showToast('✓ Compromiso registrado','success');
-  }
+  document.getElementById('af-commits').textContent = commitments.length;
+  document.getElementById('commit-count').textContent = commitments.length;
+  showToast('✓ Compromiso registrado', 'success');
   clearForm();
 }
 
-function renderCommits(){
-  const list=document.getElementById('commits-list');
-  if(!commitments.length){
-    list.innerHTML='<div class="empty-ci">Los compromisos registrados aparecerán aquí</div>';
+function renderCommits() {
+  const list = document.getElementById('commits-list');
+  if (!commitments.length) {
+    list.innerHTML = '<div class="empty-ci">Los compromisos aparecerán aquí</div>';
     return;
   }
-  list.innerHTML=commitments.slice().reverse().map(c=>`
+  list.innerHTML = commitments.slice().reverse().map(c => `
     <div class="ci">
       <div class="ci-top">
         <span class="ci-person">${c.persona}</span>
@@ -680,70 +656,56 @@ function renderCommits(){
       </div>
       <div class="ci-text">→ <strong>${c.compromiso}</strong></div>
       <div class="ci-meta">
-        <span>${c.dia||''} ${c.hora||''}</span>
-        ${c.horas&&c.horas!=='—'?'<span>'+c.horas+'h</span>':''}
+        <span>${c.dia} ${c.hora}</span>
+        ${c.horas !== '—' ? '<span>' + c.horas + 'h</span>' : ''}
       </div>
-      ${c.desc?`<div style="font-size:10px;color:var(--text3);margin-top:2px;line-height:1.4">${c.desc}</div>`:''}
+      ${c.desc ? `<div style="font-size:10px;color:var(--text3);margin-top:2px;line-height:1.4">${c.desc}</div>` : ''}
     </div>`).join('');
 }
 
-// ── END MEETING MODAL ──
-function openEndModal(){
+// ── MODAL ──
+function openEndModal() {
   renderSummaryTable();
-  document.getElementById('modal-subtitle').textContent=commitments.length+' compromisos registrados hoy';
+  document.getElementById('modal-subtitle').textContent = commitments.length + ' compromisos registrados hoy';
   document.getElementById('end-modal').classList.add('open');
 }
-function closeEndModal(){document.getElementById('end-modal').classList.remove('open');}
+function closeEndModal() { document.getElementById('end-modal').classList.remove('open'); }
 
-function renderSummaryTable(){
-  const persona=document.getElementById('mf-persona').value;
-  const bloque=document.getElementById('mf-bloque').value;
-  const filtered=commitments.filter(c=>
-    (!persona||c.persona===persona)&&
-    (!bloque||c.bloque===bloque)
+function renderSummaryTable() {
+  const persona = document.getElementById('mf-persona').value.toLowerCase();
+  const bloque = document.getElementById('mf-bloque').value;
+  const filtered = commitments.filter(c =>
+    (!persona || c.persona.toLowerCase().includes(persona)) &&
+    (!bloque || c.bloque === bloque)
   );
-  const tbody=document.getElementById('summary-tbody');
-  if(!filtered.length){
-    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:20px">Sin compromisos con estos filtros</td></tr>';
+  const tbody = document.getElementById('summary-tbody');
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:20px">Sin compromisos con estos filtros</td></tr>';
     return;
   }
-  tbody.innerHTML=filtered.map(c=>`<tr>
+  tbody.innerHTML = filtered.map(c => `<tr>
     <td class="td-person">${c.persona}</td>
     <td><strong>${c.compromiso}</strong></td>
-    <td style="font-family:var(--mono);font-size:11px;white-space:nowrap">${c.dia||''}<br>${c.hora||''}</td>
-    <td style="font-size:11px;color:var(--text3);max-width:200px">${c.desc||'—'}</td>
-    <td style="font-family:var(--mono);font-size:11px;text-align:center">${c.horas||'—'}</td>
-    <td><span class="badge b-gray">${c.bloque||'—'}</span></td>
+    <td style="font-family:var(--mono);font-size:11px;white-space:nowrap">${c.dia}<br>${c.hora}</td>
+    <td style="font-size:11px;color:var(--text3);max-width:200px">${c.desc || '—'}</td>
+    <td style="font-family:var(--mono);font-size:11px;text-align:center">${c.horas}</td>
+    <td><span class="badge b-gray">${c.bloque}</span></td>
   </tr>`).join('');
 }
 
-function copySummary(){
-  const lines=commitments.map(c=>
-    `${c.persona} se compromete a "${c.compromiso}" el ${c.dia} a las ${c.hora}. ${c.desc} (${c.horas}h) [${c.bloque}]`
+function copySummary() {
+  const lines = commitments.map(c =>
+    `${c.persona} → "${c.compromiso}" — ${c.dia} ${c.hora} (${c.horas}h) [${c.bloque}]${c.desc ? ' | ' + c.desc : ''}`
   );
-  const text=`COMPROMISOS REUNIÓN ${new Date().toLocaleDateString('es-ES')}\n\n`+lines.join('\n');
-  navigator.clipboard.writeText(text).then(()=>showToast('✓ Copiado al portapapeles','success'));
-}
-
-async function saveToSheet(){
-  if(!APPS_SCRIPT_URL){showToast('Configura APPS_SCRIPT_URL para guardar en Sheet','warn');return;}
-  try{
-    const sheetName=new Date().toLocaleDateString('es-ES').replace(/\//g,'-')+' '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-    await fetch(APPS_SCRIPT_URL,{method:'POST',body:JSON.stringify({
-      action:'save_session',
-      sheetName,
-      commitments
-    })});
-    showToast('✓ Sesión guardada en nueva pestaña del Sheet','success');
-    closeEndModal();
-  }catch{showToast('⚠ Error al guardar','error');}
+  const text = `COMPROMISOS — ${new Date().toLocaleDateString('es-ES')}\n\n` + lines.join('\n');
+  navigator.clipboard.writeText(text).then(() => showToast('✓ Copiado al portapapeles', 'success'));
 }
 
 // ── TOAST ──
-function showToast(msg,type='success'){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.className='toast show '+type;
-  setTimeout(()=>t.className='toast',3000);
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show ' + type;
+  setTimeout(() => t.className = 'toast', 3000);
 }
 
 init();
